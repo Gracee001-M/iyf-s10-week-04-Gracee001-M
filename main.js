@@ -150,4 +150,137 @@ function calculateTip(bill, tipPercent = 15) {
 console.log("Tip on $100 bill: $" + calculateTip(100));        // Default 15%
 console.log("Tip on $100 bill at 20%: $" + calculateTip(100, 20));
 
+function getGrade(score) {
+    if (score >= 90) {
+        return "A";
+    } else if (score >= 80) {
+        return "B";
+    } else if (score >= 70) {
+        return "C";
+    } else if (score >= 60) {
+        return "D";
+    } else {
+        return "F";
+    }
+}
+
+console.log(getGrade(85)); // B
+console.log(getGrade(55)); // F
+
+function getDayName(dayNumber) {
+    switch (dayNumber) {
+        case 0: return "Sunday";
+        case 1: return "Monday";
+        case 2: return "Tuesday";
+        case 3: return "Wednesday";
+        case 4: return "Thursday";
+        case 5: return "Friday";
+        case 6: return "Saturday";
+        default: return "Invalid day";
+    }
+}
+
+console.log(getDayName(3)); // Wednesday
+console.log(getDayName(7)); // Invalid day
+
+// For loop
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+}
+
+// While loop
+let number= 0;
+while (count < 5) {
+    console.log(count);
+    count++;
+}
+
+// For...of loop (arrays)
+const colors = ["red", "green", "blue"];
+for (const color of colors) {
+    console.log(color);
+}
+
+for (let i = 1; i <= 100; i++) {
+  console.log(i);
+}
+
+
+
+for (let i = 2; i <= 50; i += 2) {
+    console.log(i);
+}
+
+for (let i = 1; i <= 100; i++) {
+    if (i % 3 === 0 && i % 5 === 0) {
+        console.log("FizzBuzz");
+    } else if (i % 3 === 0) {
+        console.log("Fizz");
+    } else if (i % 5 === 0) {
+        console.log("Buzz");
+    } else {
+        console.log(i);
+    }
+}
+
+let rows = 5; 
+for (let i = 1; i <= rows; i++) {
+    console.log("*".repeat(i));
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if (b === 0) {
+        return "Error: Cannot divide by zero";
+    }
+    return a / b;
+}
+
+function modulus(a, b) {
+    return a % b;
+}
+
+function power(a, b) {
+    return a ** b;
+}
+
+function calculate(num1, operator, num2) {
+    switch (operator) {
+        case "+":
+            return add(num1, num2);
+        case "-":
+            return subtract(num1, num2);
+        case "*":
+            return multiply(num1, num2);
+        case "/":
+            return divide(num1, num2);
+        case "%":
+            return modulus(num1, num2);
+        case "**":
+            return power(num1, num2);
+        default:
+            return "Invalid operator";
+    }
+}
+console.log(calculate(10, "+", 5));   // 15
+console.log(calculate(10, "-", 5));   // 5
+console.log(calculate(10, "*", 5));   // 50
+console.log(calculate(10, "/", 5));   // 2
+console.log(calculate(10, "/", 0));   // Error: Cannot divide by zero
+console.log(calculate(10, "%", 3));   // 1
+console.log(calculate(2, "**", 4));   // 16
+
+
+
 
