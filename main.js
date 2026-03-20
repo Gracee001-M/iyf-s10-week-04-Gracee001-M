@@ -79,3 +79,75 @@ let currentYear = new Date().getFullYear();
 let yearTurn100 = currentYear + (100 - myAge);
 console.log("I will turn 100 in the year: " + yearTurn100);
 
+// Function declaration
+function greet(name) {
+    return `Hello, ${name}!`;
+}
+
+// Function expression
+const add = function(a, b) {
+    return a + b;
+};
+
+// Arrow function
+const multiply = (a, b) => a * b;
+
+// Arrow function with body
+const divide = (a, b) => {
+    if (b === 0) {
+        return "Cannot divide by zero";
+    }
+    return a / b;
+};
+
+// 1. Calculate area of rectangle
+function calculateArea(width, height) {
+    return width * height;
+}
+console.log("Area of rectangle: " + calculateArea(5, 10));
+
+// 2. Celsius to Fahrenheit
+function celsiusToFahrenheit(celsius) {
+    return (celsius * 9/5) + 32;
+}
+console.log("25°C in Fahrenheit: " + celsiusToFahrenheit(25));
+
+// 3. Check if number is even
+function isEven(number) {
+    return number % 2 === 0;
+}
+console.log("Is 4 even? " + isEven(4));
+console.log("Is 7 even? " + isEven(7));
+
+// 4. Get initials from full name
+function getInitials(GM) {
+    let parts = fullName.split(" ");
+    let initials = parts.map(part => part.charAt(0).toUpperCase()).join("");
+    return initials;
+}
+console.log("Initials of Grace Macharia: " + getInitials("Grace Macharia"));
+
+// 5. Reverse a string
+function reverseString(str) {
+    return str.split("").reverse().join("");
+}
+console.log("Reverse of 'hello': " + reverseString("hello"));
+
+
+function greet(name = "Guest", greeting = "Hello") {
+    return `${greeting}, ${name}!`;
+}
+
+console.log(greet());             
+console.log(greet("Grace"));       
+console.log(greet("John", "Hi"));   
+
+
+function calculateTip(bill, tipPercent = 15) {
+    return bill * (tipPercent / 100);
+}
+
+console.log("Tip on $100 bill: $" + calculateTip(100));        // Default 15%
+console.log("Tip on $100 bill at 20%: $" + calculateTip(100, 20));
+
+
