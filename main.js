@@ -382,3 +382,94 @@ const hasTopStudent = students.some(student => student.grade > 90);
 // 8. Check if all students are passing (grade >= 60)
 const allPassing = students.every(student => student.grade >= 60);
 
+const gradeTracker = {
+    students: [],
+    
+    // Add a new student
+    addStudent(name, grades) {
+        this.students.push({ name, grades });
+    },
+    
+    // Get a student by name
+    getStudent(name) {
+        return this.students.find(student => student.name === name) || null;
+    },
+    
+    // Calculate a student's average
+    getStudentAverage(name) {
+        const student = this.getStudent(name);
+        if (!student) return null;
+        const grades = Object.values(student.grades);
+        const sum = grades.reduce((total, g) => total + g, 0);
+        return (sum / grades.length).toFixed(2);
+    },
+    
+    // Get class average for a subject
+    getSubjectAverage(subject) {
+        const subjectGrades = this.students
+            .map(student => student.grades[subject])
+            .filter(grade => grade !== undefined);
+        const sum = subjectGrades.reduce((total, g) => total + g, 0);
+        return (sum / subjectGrades.length).toFixed(2);
+    },
+    
+    // Get top performer
+    getTopStudent() {
+        let top = null;
+        let highestAvg = 0;
+        this.students.forEach(student => {
+            const avg = parseFloat(this.getStudentAverage(student.name));
+            if (avg > highestAvg) {
+                highestAvg = avg;
+                top = student;
+            }
+        });
+        return top ? top.name : null;
+    },
+    
+    // Get students needing help (average < 70)
+    getStrugglingStudents() {
+        return this.students.filter(student => 
+            parseFloat(this.getStudentAverage(student.name)) < 70
+        );
+    },
+    
+    // Get letter grade
+    getLetterGrade(score) {
+        if (score >= 90) return "A";
+        if (score >= 80) return "B";
+        if (score >= 70) return "C";
+        if (score >= 60) return "D";
+        return "F";
+    },
+    
+    // Generate report card
+    generateReportCard(name) {
+        const student = this.getStudent(name);
+        if (!student) return "Student not found.";
+        const grades = student.grades;
+        const avg = this.getStudentAverage(name);
+        const letter = this.getLetterGrade(avg);
+        
+        let report = `Report Card for ${student.name}\n`;
+        for (const subject in grades) {
+            report += `${subject}: ${grades[subject]}\n`;
+        }
+        report += `Average: ${avg}\n`;
+        report += `Letter Grade: ${letter}`;
+        return report;
+    }
+};
+
+// Test your implementation
+gradeTracker.addStudent("Alice", { math: 95, english: 88, science: 92 });
+gradeTracker.addStudent("Bob", { math: 72, english: 85, science: 78 });
+gradeTracker.addStudent("Charlie", { math: 60, english: 65, science: 58 });
+
+console.log(gradeTracker.getStudentAverage("Alice"));      // 91.67
+console.log(gradeTracker.getSubjectAverage("math"));       // 75.67
+console.log(gradeTracker.getTopStudent());                 // Alice
+console.log(gradeTracker.getStrugglingStudents());         // [Charlie]
+console.log(gradeTracker.generateReportCard("Alice"));
+
+
