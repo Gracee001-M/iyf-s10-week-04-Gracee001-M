@@ -281,6 +281,199 @@ console.log(calculate(10, "/", 0));   // Error: Cannot divide by zero
 console.log(calculate(10, "%", 3));   // 1
 console.log(calculate(2, "**", 4));   // 16
 
+const doubled = numbers.map(num => num * 2);
+console.log(doubled); // [4, -10, 16, 24, -6, 8]
+
+const positives = numbers.filter(num => num >= 0);
+console.log(positives); // [2, 8, 12, 4]
+
+const firstGreaterThanTen = numbers.find(num => num > 10);
+console.log(firstGreaterThanTen); // 12
+
+const product = numbers.reduce((total, num) => total * num, 1);
+console.log(product); // -5760
+
+// Creating objects
+const person = {
+    firstName: "Grace",
+    lastName: "Macharia",
+    age: 19,
+    isStudent: true,
+    hobbies: ["reading", "journaling", "coding"],
+    address: {
+        city: "Nairobi",
+        country: "Kenya"
+    }
+};
+
+// Accessing properties
+console.log(person.firstName);        
+console.log(person["lastName"]);       
+console.log(person.address.city);     
+
+// Modifying properties
+person.age = 31;
+person.email = "gracemacharia031@gmail.com";     
+delete person.isStudent;    
+
+const calculator = {
+    add: function(a, b) {
+        return a + b;
+    },
+    // Shorthand method syntax
+    subtract(a, b) {
+        return a - b;
+    },
+    // Arrow function
+    multiply: (a, b) => a * b
+};
+
+console.log(calculator.add(5, 3));
+
+const scores = {
+    math: 95,
+    english: 88,
+    science: 92
+};
+
+// Get keys
+console.log(Object.keys(scores));   // ["math", "english", "science"]
+
+// Get values
+console.log(Object.values(scores)); // [95, 88, 92]
+
+// Get entries
+console.log(Object.entries(scores)); // [["math", 95], ["english", 88], ...]
+
+// Loop through
+for (const [subject, score] of Object.entries(scores)) {
+    console.log(`${subject}: ${score}`);
+}
+
+const students = [
+    { name: "Alice", age: 22, grade: 85, major: "CS" },
+    { name: "Bob", age: 20, grade: 72, major: "Math" },
+    { name: "Charlie", age: 23, grade: 90, major: "CS" },
+    { name: "Diana", age: 21, grade: 88, major: "Physics" },
+    { name: "Eve", age: 22, grade: 95, major: "CS" }
+];
+
+// 1. Get all student names
+const names = students.map(student => student.name);
+
+// 2. Get students with grade > 80
+const highAchievers = students.filter(student => student.grade > 80);
+
+// 3. Find the student named "Charlie"
+const charlie = students.find(student => student.name === "Charlie");
+
+// 4. Calculate average grade
+const avgGrade = students.reduce((total, student) => total + student.grade, 0) / students.length;
+
+// 5. Get CS majors only
+const csMajors = students.filter(student => student.major === "CS");
+
+// 6. Sort by grade (highest first)
+const sortedByGrade = [...students].sort((a, b) => b.grade - a.grade);
+
+// 7. Check if any student has grade > 90
+const hasTopStudent = students.some(student => student.grade > 90);
+
+// 8. Check if all students are passing (grade >= 60)
+const allPassing = students.every(student => student.grade >= 60);
+
+const gradeTracker = {
+    students: [],
+    
+    // Add a new student
+    addStudent(name, grades) {
+        this.students.push({ name, grades });
+    },
+    
+    // Get a student by name
+    getStudent(name) {
+        return this.students.find(student => student.name === name) || null;
+    },
+    
+    // Calculate a student's average
+    getStudentAverage(name) {
+        const student = this.getStudent(name);
+        if (!student) return null;
+        const grades = Object.values(student.grades);
+        const sum = grades.reduce((total, g) => total + g, 0);
+        return (sum / grades.length).toFixed(2);
+    },
+    
+    // Get class average for a subject
+    getSubjectAverage(subject) {
+        const subjectGrades = this.students
+            .map(student => student.grades[subject])
+            .filter(grade => grade !== undefined);
+        const sum = subjectGrades.reduce((total, g) => total + g, 0);
+        return (sum / subjectGrades.length).toFixed(2);
+    },
+    
+    // Get top performer
+    getTopStudent() {
+        let top = null;
+        let highestAvg = 0;
+        this.students.forEach(student => {
+            const avg = parseFloat(this.getStudentAverage(student.name));
+            if (avg > highestAvg) {
+                highestAvg = avg;
+                top = student;
+            }
+        });
+        return top ? top.name : null;
+    },
+    
+    // Get students needing help (average < 70)
+    getStrugglingStudents() {
+        return this.students.filter(student => 
+            parseFloat(this.getStudentAverage(student.name)) < 70
+        );
+    },
+    
+    // Get letter grade
+    getLetterGrade(score) {
+        if (score >= 90) return "A";
+        if (score >= 80) return "B";
+        if (score >= 70) return "C";
+        if (score >= 60) return "D";
+        return "F";
+    },
+    
+    // Generate report card
+    generateReportCard(name) {
+        const student = this.getStudent(name);
+        if (!student) return "Student not found.";
+        const grades = student.grades;
+        const avg = this.getStudentAverage(name);
+        const letter = this.getLetterGrade(avg);
+        
+        let report = `Report Card for ${student.name}\n`;
+        for (const subject in grades) {
+            report += `${subject}: ${grades[subject]}\n`;
+        }
+        report += `Average: ${avg}\n`;
+        report += `Letter Grade: ${letter}`;
+        return report;
+    }
+};
+
+// Test your implementation
+gradeTracker.addStudent("Alice", { math: 95, english: 88, science: 92 });
+gradeTracker.addStudent("Bob", { math: 72, english: 85, science: 78 });
+gradeTracker.addStudent("Charlie", { math: 60, english: 65, science: 58 });
+
+console.log(gradeTracker.getStudentAverage("Alice"));      // 91.67
+console.log(gradeTracker.getSubjectAverage("math"));       // 75.67
+console.log(gradeTracker.getTopStudent());                 // Alice
+console.log(gradeTracker.getStrugglingStudents());         // [Charlie]
+console.log(gradeTracker.generateReportCard("Alice"));
+
+
+
 
 
 
